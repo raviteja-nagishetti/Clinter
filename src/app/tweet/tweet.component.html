@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="input">
+            <i class="fab fa-twitter fa-4x text-primary"></i>
+            <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
+            <button type="submit" class="btn btn-success" (click)="mytweets()">My Tweets</button>
+
+    </div>
+    
+    <div>
+        <form (ngSubmit)="onSubmit()">
+            <input type="text" [(ngModel)]="tweet.msg" class="form-control" name="msg" required (input)="enableSubmitButton()">
+            <button type="submit" class="btn btn-success" [disabled]="!isMsgValid">Tweet</button>
+        </form>
+    </div>
+
+    <div class="card-deck">
+        <div class="card m-2 p-3" style="min-width: 90%;min-height: 60px;" *ngFor="let m of msgArray;let i = index">
+            <h2>{{m.user}}</h2><br>
+            {{m.msg}}
+            <a (click)="like(i)"><i class="fas fa-heart"></i></a>
+            <div *ngIf="m.likeCount>0">{{m.likeCount}}</div>
+        </div>
+    </div>
+
+
+</div>

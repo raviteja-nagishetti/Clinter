@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class DataService {
   currentUser;//= {username:'', userid:''};
-  serverUrl = 'http://localhost:3030/api';
+  serverUrl = 'http://localhost:3000/api';
 
   constructor(private http:HttpClient,private router:Router) { }
 
@@ -15,10 +15,10 @@ export class DataService {
    // console.log(JSON.stringify(body));
     return this.http.post(this.serverUrl+'/register',body);
   }
-  login(query)
+  login()
   {
-    console.log(JSON.stringify(query))
-    return this.http.get(this.serverUrl+'/login'+query);
+    console.log('Data Service login');
+    return this.http.get(this.serverUrl+'/google');
   }
   user(user)
   {

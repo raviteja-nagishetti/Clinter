@@ -1,40 +1,35 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SocialAuthService } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  currentUser;//= {username:'', userid:''};
+  loggedInUser;
   serverUrl = 'http://localhost:3000/api';
 
-  constructor(private http:HttpClient,private router:Router) { }
+  constructor(public authService: SocialAuthService, private http: HttpClient, private _router:Router) { }
 
-  register(body){
-   // console.log(JSON.stringify(body));
-    return this.http.post(this.serverUrl+'/register',body);
+  signInWithGoogle(){
+    console.log('Dataserveice sign with google');
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (usr) => this.loggedInUser = usr);
   }
-  login()
-  {
-    console.log('Data Service login');
-    return this.http.get(this.serverUrl+'/google');
+
+  signOut(){
+    this.authService.signOut();
   }
-  user(user)
-  {
-    //console.log(JSON.stringify(user));
-    this.currentUser = user;
-    return;
-  }
+
   getTweets(q)
   {
-      console.log('getTweets Method called:');
+      //console.log('getTweets Method called:');
       return this.http.get(this.serverUrl+'/tweets'+q);
   }
   postTweet(tweet)
   {
-      console.log('postTweets Method called');
-      //alert(JSON.stringify(tweet));
+      //console.log('postTweets Method called');
       return this.http.post(this.serverUrl+'/tweets',tweet);
   }
 }

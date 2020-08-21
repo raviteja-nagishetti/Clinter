@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
-//import { UserService } from '../user.service';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -11,48 +10,23 @@ import { DataService } from '../data.service';
 })
 export class LoginComponent implements OnInit {
 
-  user;
-  /*loginForm : FormGroup=new FormGroup({
-    email:new FormControl(null,[Validators.email,Validators.required]),
-    password:new FormControl(null, Validators.required)
-  });*/
-  constructor(private _router:Router, private data:DataService) { }
+  loggedInUser : SocialUser;
+  isLoggedIn : boolean;
+
+  constructor(private data:DataService, private _router:Router) { }
 
   ngOnInit() {
-  }
-  /*login(){
-      if(!this.loginForm.valid)
-       { console.log('Invalid');
-        return;
-      }
-      var query = '?';
-      query +='email='+this.loginForm.controls.email.value;
-      query +='&password='+this.loginForm.controls.password.value;
-     this.data.login(query).subscribe(d => {
-       this.user = d;
-      // console.log(d);
-       if(this.user.message == 'success'){
-        this.data.user(this.user)
-          {
-            this._router.navigate(['/tweet']);
-          }
-       }
+    this.data.authService.authState.subscribe((user) => {
+      this.loggedInUser = user;
+      this.isLoggedIn = (user != null);
+      if(this.isLoggedIn)
+        this._router.navigate(['/tweet']);
+      else
+        this._router.navigate(['/']);
     });
-  }*/
-  signWithGoogle(){
-    this.data.login().subscribe(d => {
-      this.user = d;
-     // console.log(d);
-      /*if(this.user.message == 'success'){
-       this.data.user(this.user)
-         {
-           this._router.navigate(['/tweet']);
-         }
-      }*/
-   });
-    
   }
-  moveToRegister(){
-    this._router.navigate(['/register']);
+  signWithGoogle(){
+    console.log('login');
+    this.data.signInWithGoogle();
   }
 }

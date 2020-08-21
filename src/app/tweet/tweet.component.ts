@@ -13,19 +13,18 @@ export class TweetComponent implements OnInit {
   tweet = {msg:'Test msg'};
   user ;
   constructor(private data:DataService,private router:Router) {
-    this.user = data.currentUser;
+    this.user = data.loggedInUser;
    }
 
   ngOnInit() {
     this.data.getTweets('').subscribe(d => {
-      console.log(JSON.stringify(d))
       this.msgArray = JSON.parse(JSON.stringify(d));
     });
   }
 
   onSubmit(){
     if(this.tweet.msg.length>0){
-      var obj = {index:this.msgArray.length,user:this.user.username,msg:'',likeCount:0};
+      var obj = {index:this.msgArray.length,user:this.user.name,msg:'',likeCount:0};
       obj.msg = this.tweet.msg;
       this.msgArray.unshift(obj);
       this.data.postTweet(obj).subscribe(res => 
@@ -52,11 +51,11 @@ export class TweetComponent implements OnInit {
     )
   }
   logout(){
-    this.router.navigate(['/login']);
+    this.data.signOut();
   }
   mytweets()
   {
-    this.data.getTweets('?username='+this.user.userid).subscribe(d => {
+    this.data.getTweets('?username='+this.user.id).subscribe(d => {
       this.msgArray = JSON.parse(JSON.stringify(d));
     });
   }

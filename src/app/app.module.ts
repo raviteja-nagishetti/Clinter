@@ -6,15 +6,15 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TweetComponent } from './tweet/tweet.component';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DataService } from './data.service';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
     AppComponent,
     TweetComponent,
-    RegisterComponent,
     LoginComponent,
   ],
   imports: [
@@ -22,9 +22,27 @@ import { DataService } from './data.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
   ],
-  providers: [DataService],
+ 
+  providers: [
+    { provide: DataService },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '641515385074-cjhu280t7eqq61onosl4125u21161ufa.apps.googleusercontent.com'
+            ),
+          }
+        ],
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

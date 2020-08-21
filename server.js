@@ -40,7 +40,6 @@ var dbOptions = {
   // * Body Parser ********
 
   app.post('/api/register',(req, res)=> {
-    //console.log(JSON.stringify(req.body));
     var user = {
       "google_id" : req.body.id,
       "username" : req.body.firstName
@@ -58,19 +57,16 @@ var dbOptions = {
             res.json(doc);
         });
       }
-      res.json(usr);
     });
   });
 
   app.get('/api/tweets', (req, res) => {
-    //console.log(req.query.username);
     var query = {};
     if(req.query.username);
       query.user = req.query.username;
-    //console.log(JSON.stringify(query));
     Tweet.find({},'', {
       sort : '-index',
-      limit: 12//+req.query.limit,// + is for parsing
+      limit: 50
     }, (err, docs) => {
       if (err) {
         console.log('Error while getting movies from DB in /api/tweets: ' + err);

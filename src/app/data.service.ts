@@ -14,7 +14,7 @@ export class DataService {
   constructor(public authService: SocialAuthService, private http: HttpClient, private _router:Router) { }
 
   signInWithGoogle(){
-    console.log('Dataserveice sign with google');
+    //console.log('Dataserveice sign with google');
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (usr) => this.loggedInUser = usr);
   }
 

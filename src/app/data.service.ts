@@ -21,7 +21,9 @@ export class DataService {
   signOut(){
     this.authService.signOut();
   }
-
+  register(user){
+    return this.http.post(this.serverUrl+'/register', user);
+  }
   getTweets(q)
   {
       //console.log('getTweets Method called:');

@@ -24,7 +24,8 @@ export class TweetComponent implements OnInit {
 
   onSubmit(){
     if(this.tweet.msg.length>0){
-      var obj = {index:this.msgArray.length,user:this.user.name,msg:'',likeCount:0};
+      
+      var obj = {index:this.msgArray.length,user:this.user.firstName,msg:'',likeCount:0, google_id:this.user.id};
       obj.msg = this.tweet.msg;
       this.msgArray.unshift(obj);
       this.data.postTweet(obj).subscribe(res => 

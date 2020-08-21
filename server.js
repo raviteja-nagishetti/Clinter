@@ -39,6 +39,38 @@ var dbOptions = {
   app.use(cors());
   // * Body Parser ********
 
+  app.post('/api/register',(req, res)=> {
+    console.log(JSON.stringify(req.body));
+    var user = {
+      "google_id" : req.body.id,
+      "username" : req.body.firstName
+    };
+    User.findOne({google_id: req.body.id},function(err, usr) {
+      if(usr==null){
+        var newUser = new User(user);
+        newUser.save((err, doc) => {
+          if (err) {
+            console.log("Error occurred");
+            res.json({
+              "message": "error"
+            });
+          } else
+            res.json(doc);
+        });
+      }
+      res.json(usr);
+    });
+   /* user.save((err, doc) => {
+      if (err) {
+        console.log("Error occurred");
+        res.json({
+          "message": "error"
+        });
+      } else
+        res.json(doc);
+    })*/
+  });
+
   app.get('/api/tweets', (req, res) => {
     //console.log(req.query.username);
     var query = {};
@@ -65,7 +97,8 @@ var dbOptions = {
       "index" : req.body.index,
       "user" : req.body.user,
       "msg": req.body.msg,
-      "likeCount" : req.body.likeCount
+      "likeCount" : req.body.likeCount,
+      "google_id" : req.body.google_id
     };
     //console.log(req.body.index);
     Tweet.findOne({index: req.body.index},{sort:"index"} ,function(err, doc) {
@@ -83,7 +116,7 @@ var dbOptions = {
           }
           else{
             //console.log("update");
-            Tweet.findOneAndUpdate({ index : req.body.index}, ord,{useFindAndModify: false},(err,docs)=>{
+          Tweet.findOneAndUpdate({ index : req.body.index}, ord,{useFindAndModify: false},(err,docs)=>{
               if (err) {
                 console.log('Error while updating: ' + err);
                 res.json({

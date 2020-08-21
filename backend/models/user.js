@@ -5,7 +5,6 @@ var bcrypt = require('bcrypt');
 var schema = new Schema({
     google_id : {type:String, require:true},
     username: {type:String, require:true}
-    //password:{type:String, require:true}
 });
 
 

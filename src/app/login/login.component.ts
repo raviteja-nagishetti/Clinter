@@ -10,17 +10,18 @@ import { SocialUser } from 'angularx-social-login';
 })
 export class LoginComponent implements OnInit {
 
-  loggedInUser : SocialUser;
-  isLoggedIn : boolean;
-
   constructor(private data:DataService, private _router:Router) { }
 
   ngOnInit() {
     this.data.authService.authState.subscribe((user) => {
-      this.loggedInUser = user;
-      this.isLoggedIn = (user != null);
-      if(this.isLoggedIn)
-        this._router.navigate(['/tweet']);
+      if(user)
+      {
+          this.data.register(user).subscribe(res => 
+          {
+            this._router.navigate(['/tweet']);
+          }
+      )
+      }
       else
         this._router.navigate(['/']);
     });

@@ -5,7 +5,8 @@ var tweetSchema = new Schema({
   index: Number,
   user: String,
   msg: String,
-  likeCount:Number
+  likeCount:Number,
+  google_id: String
 });
 
 var Tweet = mongoose.model('Tweet', tweetSchema);

@@ -40,7 +40,7 @@ var dbOptions = {
   // * Body Parser ********
 
   app.post('/api/register',(req, res)=> {
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
     var user = {
       "google_id" : req.body.id,
       "username" : req.body.firstName

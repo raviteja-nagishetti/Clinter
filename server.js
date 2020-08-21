@@ -60,15 +60,6 @@ var dbOptions = {
       }
       res.json(usr);
     });
-   /* user.save((err, doc) => {
-      if (err) {
-        console.log("Error occurred");
-        res.json({
-          "message": "error"
-        });
-      } else
-        res.json(doc);
-    })*/
   });
 
   app.get('/api/tweets', (req, res) => {

@@ -16,11 +16,8 @@ export class LoginComponent implements OnInit {
     this.data.authService.authState.subscribe((user) => {
       if(user)
       {
-          this.data.register(user).subscribe(res => 
-          {
-            this._router.navigate(['/tweet']);
-          }
-      )
+          this.data.register(user);
+          this._router.navigate(['/tweet']);
       }
       else
         this._router.navigate(['/']);

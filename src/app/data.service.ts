@@ -22,7 +22,7 @@ export class DataService {
     this.authService.signOut();
   }
   register(user){
-    return this.http.post(this.serverUrl+'/register',user);
+    this.http.post(this.serverUrl+'/register',user);
   }
   getTweets(q)
   {

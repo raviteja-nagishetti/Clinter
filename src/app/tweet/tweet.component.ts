@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 export class TweetComponent implements OnInit {
   msgArray = [];
   isMsgValid=false;
-  tweet = {msg:'Test msg'};
+  msgstring = "What"+"'s"+" happening?";
+  tweet = {msg: this.msgstring};
   user ;
   constructor(private data:DataService,private router:Router) {
     this.user = data.loggedInUser;

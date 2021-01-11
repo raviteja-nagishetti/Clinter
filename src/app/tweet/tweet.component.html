@@ -1,8 +1,12 @@
 <div class="container">
     <div class="input">
-            <i class="fab fa-twitter fa-4x text-primary"></i>
-            <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
-            <button type="submit" class="btn btn-success" (click)="mytweets()">My Tweets</button>
+            <table style="width: 100%;">
+                <tr>
+                    <th style="text-align: left;"><i class="fab fa-twitter fa-4x text-primary"></i></th>
+                    <th style="text-align: center;"><button type="submit" class="btn btn-success" (click)="mytweets()">My Tweets</button></th>
+                    <th style="text-align: right;"><button type="submit" class="btn btn-success" (click)="logout()">Logout</button></th>
+                </tr>
+            </table>
 
     </div>
     
@@ -14,11 +18,20 @@
     </div>
 
     <div class="card-deck">
-        <div class="card m-2 p-3" style="min-width: 90%;min-height: 60px;" *ngFor="let m of msgArray;let i = index">
-            <h2>{{m.user}}</h2><br>
+        <div class="card m-2 p-3" style="min-width: 90%;min-height: 30px;" *ngFor="let m of msgArray;let i = index">
+            <h5>{{m.user}}</h5>
             {{m.msg}}
-            <a (click)="like(i)"><i class="fas fa-heart"></i></a>
-            <div *ngIf="m.likeCount>0">{{m.likeCount}}</div>
+            <table style="width: 100%">
+                <tr>
+                    <td><a (click)="like(i)"><i class="fa fa-heart-o"></i></a>
+                    <div  *ngIf="m.likeCount>0">{{m.likeCount}}</div></td>
+                    <td><a (click)="like(i)"><i class="fa fa-retweet"></i></a></td>
+                    <td><a (click)="like(i)"><i class="fa fa-reply"></i></a></td>
+                    <td><a (click)="like(i)"><i class="fa fa-comment-o"></i></a></td>
+                </tr>
+            </table>
+            
+            
         </div>
     </div>
 

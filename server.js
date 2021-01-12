@@ -4,7 +4,6 @@ const app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var User = require('./backend/models/user');
 var Tweet = require('./backend/models/tweet');
 
 var passport = require('passport');
@@ -85,7 +84,8 @@ var dbOptions = {
       "user" : req.body.user,
       "msg": req.body.msg,
       "likeCount" : req.body.likeCount,
-      "google_id" : req.body.google_id
+      "google_id" : req.body.google_id,
+      "likers" : req.body.likers
     };
     //console.log(req.body.index);
     Tweet.findOne({index: req.body.index},{sort:"index"} ,function(err, doc) {

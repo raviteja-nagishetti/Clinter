@@ -23,15 +23,13 @@
             {{m.msg}}
             <table style="width: 100%">
                 <tr>
-                    <td><a (click)="like(i)"><i class="fa fa-heart-o"></i></a>
+                    <td><a (click)="like(i)"><i class="fa fa-heart" [style.color]="isLiked(m.likers) ? 'red' : ''"></i></a>
                     <div  *ngIf="m.likeCount>0">{{m.likeCount}}</div></td>
                     <td><a (click)="like(i)"><i class="fa fa-retweet"></i></a></td>
                     <td><a (click)="like(i)"><i class="fa fa-reply"></i></a></td>
                     <td><a (click)="like(i)"><i class="fa fa-comment-o"></i></a></td>
                 </tr>
             </table>
-            
-            
         </div>
     </div>
 

@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Twitter:build"
+            "browserTarget": "twitter:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Twitter:build:production"
+              "browserTarget": "twitter:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Twitter:build"
+            "browserTarget": "twitter:build"
           }
         },
         "test": {
@@ -111,18 +111,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Twitter:serve"
+            "devServerTarget": "twitter:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Twitter:serve:production"
+              "devServerTarget": "twitter:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "Twitter",
+  "defaultProject": "twitter",
   "cli": {
     "analytics": "1b73e5b9-1a7a-47fa-9349-0b96a226846f"
   }

@@ -9,7 +9,7 @@ import { GoogleLoginProvider } from "angularx-social-login";
 })
 export class DataService {
   loggedInUser;
-  serverUrl = 'http://clinter.herokuapp.com/api';
+  serverUrl = 'https://clinter.herokuapp.com/api';
 
   constructor(public authService: SocialAuthService, private http: HttpClient, private _router:Router) { }
 

@@ -9,12 +9,12 @@ import { GoogleLoginProvider } from "angularx-social-login";
 })
 export class DataService {
   loggedInUser;
-  serverUrl = 'http://localhost:3000/api';
+  serverUrl = 'https://clinter.herokuapp.com/api';
 
   constructor(public authService: SocialAuthService, private http: HttpClient, private _router:Router) { }
 
   signInWithGoogle(){
-    console.log('Data service sign with google');
+    //console.log('Data service sign with google');
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then( (usr) => this.loggedInUser = usr);
   }
 
@@ -26,7 +26,7 @@ export class DataService {
   }
   getTweets(q)
   {
-      //console.log('getTweets Method called:');
+      //console.log(q);
       return this.http.get(this.serverUrl+'/tweets'+q);
   }
   postTweet(tweet)

@@ -38,37 +38,18 @@ var dbOptions = {
   app.use(cors());
   // * Body Parser ********
 
-  app.post('/api/register',(req, res)=> {
-    var user = {
-      "google_id" : req.body.id,
-      "username" : req.body.firstName
-    };
-    User.findOne({google_id: req.body.id},function(err, usr) {
-      if(usr==null){
-        var newUser = new User(user);
-        newUser.save((err, doc) => {
-          if (err) {
-            console.log("Error occurred");
-            res.json({
-              "message": "error"
-            });
-          } else
-            res.json(doc);
-        });
-      }
-    });
-  });
-
   app.get('/api/tweets', (req, res) => {
-    var query = {};
-    if(req.query.username);
-      query.user = req.query.username;
-    Tweet.find({},'', {
+    
+    let query = {};
+    if(req.query.username)
+      query.google_id = req.query.username;  // +req.query.yera '+' for ParseInt
+    //console.log(query);
+    Tweet.find(query,'', {
       sort : '-index',
       limit: 50
     }, (err, docs) => {
       if (err) {
-        console.log('Error while getting movies from DB in /api/tweets: ' + err);
+        console.log('Error while getting tweets from DB in /api/tweets: ' + err);
         res.json({
           error: err
         });

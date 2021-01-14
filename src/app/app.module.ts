@@ -36,7 +36,7 @@ import { GoogleLoginProvider} from 'angularx-social-login';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '641515385074-29fad4cjlmfgenukmta4eipmdh7m1ts5.apps.googleusercontent.com'
+              process.env.CLIENTID
             ),
           }
         ],

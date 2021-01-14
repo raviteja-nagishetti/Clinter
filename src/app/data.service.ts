@@ -34,4 +34,7 @@ export class DataService {
       //console.log('postTweets Method called');
       return this.http.post(this.serverUrl+'/tweets',tweet);
   }
+  deleteTweet(tweet){
+      return this.http.post(this.serverUrl+'/delete', tweet);
+  }
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class TweetComponent implements OnInit {
   msgArray = [];
   isMsgValid=false;
+  mytweetsActive = false;
   tweet = {msg: "What"+"'s"+" happening?"};
   user ;
   constructor(private data:DataService,private router:Router) {
@@ -17,15 +18,17 @@ export class TweetComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.mytweetsActive = false;
     this.data.getTweets('').subscribe(d => {
       this.msgArray = JSON.parse(JSON.stringify(d));
     });
   }
 
   onSubmit(){
-    if(this.tweet.msg.length>0){
-      
-      var obj = {index:this.msgArray.length,user:this.user.firstName,msg:'',likeCount:0, google_id:this.user.id,likers:[]};
+    if(this.tweet.msg.length > 0){
+      var obj = {index:0, user:this.user.firstName, msg:'',likeCount:0, google_id:this.user.id, likers:[]};
+      if(this.msgArray.length)
+        obj.index = this.msgArray[0].index + 1;
       obj.msg = this.tweet.msg;
       this.msgArray.unshift(obj);
       this.data.postTweet(obj).subscribe(res => 
@@ -79,8 +82,16 @@ export class TweetComponent implements OnInit {
   }
   mytweets()
   {
+    this.mytweetsActive = true;
     this.data.getTweets('?username='+this.user.id).subscribe(d => {
       this.msgArray = JSON.parse(JSON.stringify(d));
     });
+  }
+  delete(i){
+    //console.log(this.msgArray[i]);
+    this.data.deleteTweet(this.msgArray[i]).subscribe(res => 
+      {}
+    )
+    this.msgArray.splice(i, 1);
   }
 }

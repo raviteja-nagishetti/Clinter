@@ -39,7 +39,6 @@ var dbOptions = {
   // * Body Parser ********
 
   app.get('/api/tweets', (req, res) => {
-    
     let query = {};
     if(req.query.username)
       query.google_id = req.query.username;  // +req.query.yera '+' for ParseInt
@@ -68,7 +67,6 @@ var dbOptions = {
       "google_id" : req.body.google_id,
       "likers" : req.body.likers
     };
-    //console.log(req.body.index);
     Tweet.findOne({index: req.body.index},{sort:"index"} ,function(err, doc) {
           if(doc==null){
             var newTweet = new Tweet(ord);
@@ -84,18 +82,29 @@ var dbOptions = {
           }
           else{
             //console.log("update");
-          Tweet.findOneAndUpdate({ index : req.body.index}, ord,{useFindAndModify: false},(err,docs)=>{
-              if (err) {
-                console.log('Error while updating: ' + err);
-                res.json({
-                  error: err
-                });
-              } else {
-                res.json(docs);
-              }
-            });
+            Tweet.findOneAndUpdate({ index : req.body.index}, ord,{useFindAndModify: false},(err,docs)=>{
+                if (err) {
+                  console.log('Error while updating: ' + err);
+                  res.json({
+                    error: err
+                  });
+                } else {
+                  res.json(docs);
+                }
+              });
           }
     });
-  })
+  });
+
+  app.post('/api/delete',(req, res) =>{
+    Tweet.findOneAndDelete({ index : req.body.index }, function (err, docs) { 
+        if (err){ 
+            console.log(err) 
+        } 
+        else{ 
+            console.log("Deleted User : ", docs); 
+        } 
+    });
+  });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

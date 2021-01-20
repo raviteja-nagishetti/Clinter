@@ -25,8 +25,10 @@ export class TweetComponent implements OnInit {
   }
 
   onSubmit(){
+    //console.log(this.user);
     if(this.tweet.msg.length > 0){
-      var obj = {index:0, user:this.user.firstName, msg:'',likeCount:0, google_id:this.user.id, likers:[]};
+      var obj = {index:0, user:this.user.firstName, msg:'',likeCount:0, 
+                  google_id:this.user.id, photoUrl: this.user.photoUrl, likers:[] };
       if(this.msgArray.length)
         obj.index = this.msgArray[0].index + 1;
       obj.msg = this.tweet.msg;
@@ -40,7 +42,7 @@ export class TweetComponent implements OnInit {
   }
 
   enableSubmitButton(){
-    if(this.tweet.msg.length>0){
+    if(this.tweet.msg.length > 0){
       this.isMsgValid=true;
     }
     else{

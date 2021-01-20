@@ -7,6 +7,7 @@ var tweetSchema = new Schema({
   msg: String,
   likeCount:Number,
   google_id: String,
+  photoUrl : String,
   likers: [String]
 });
 

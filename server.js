@@ -59,50 +59,47 @@ var dbOptions = {
   });
   
   app.post('/api/tweets', (req, res) => {
+    //console.log(req.body);
     var ord = {
       "index" : req.body.index,
       "user" : req.body.user,
       "msg": req.body.msg,
       "likeCount" : req.body.likeCount,
       "google_id" : req.body.google_id,
-      "likers" : req.body.likers
+      "likers" : req.body.likers,
+      "photoUrl" : req.body.photoUrl
     };
-    Tweet.findOne({index: req.body.index},{sort:"index"} ,function(err, doc) {
-          if(doc==null){
-            var newTweet = new Tweet(ord);
-            newTweet.save((err, doc) => {
-              if (err) {
-                console.log("Error occurred");
-                res.json({
-                  "message": "error"
-                });
-              } else
-                res.json(doc);
-            });
+    if(req.body._id === undefined){
+      var newTweet = new Tweet(ord);
+      newTweet.save((err, doc) => {
+        if (err) {
+          console.log("Error occurred "+err);
+          res.json({
+            "message": "error"
+          });
+        } else
+          res.json(doc);
+      });
+    }
+    else{
+      //console.log("update");
+      Tweet.findOneAndUpdate({ _id: req.body._id}, ord,{useFindAndModify: false},(err,docs)=>{
+          if (err) {
+            console.log('Error while updating: ' + err);
+          } else {
+            res.json(docs);
           }
-          else{
-            //console.log("update");
-            Tweet.findOneAndUpdate({ index : req.body.index}, ord,{useFindAndModify: false},(err,docs)=>{
-                if (err) {
-                  console.log('Error while updating: ' + err);
-                  res.json({
-                    error: err
-                  });
-                } else {
-                  res.json(docs);
-                }
-              });
-          }
-    });
+        });
+    }
   });
 
   app.post('/api/delete',(req, res) =>{
-    Tweet.findOneAndDelete({ index : req.body.index }, function (err, docs) { 
+    Tweet.findOneAndDelete({ _id: req.body._id }, function (err, docs) { 
         if (err){ 
             console.log(err) 
         } 
         else{ 
-            console.log("Deleted User : ", docs); 
+            console.log("Deleted tweet"); 
         } 
     });
   });
